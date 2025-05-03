@@ -1,0 +1,1 @@
+SELECT * FROM ClassMeetings WHERE Building IS NOT NULL;

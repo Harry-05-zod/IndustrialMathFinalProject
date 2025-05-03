@@ -1,0 +1,1 @@
+SELECT * FROM StudentRegistrations WHERE Enrl_Actual > Max_Enrl;

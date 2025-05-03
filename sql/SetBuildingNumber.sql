@@ -1,0 +1,1 @@
+UPDATE ClassMeetings SET Building = 'Default' WHERE Building IS NULL;

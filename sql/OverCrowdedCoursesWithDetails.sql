@@ -1,0 +1,1 @@
+SELECT CRN, CourseTitle FROM StudentRegistrations WHERE Enrl_Actual > Max_Enrl;

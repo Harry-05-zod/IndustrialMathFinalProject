@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: industrialmathfinal-backend
+    env: python
+    plan: free
+    buildCommand: ""
+    startCommand: "python app.py"
+    envVars:
+      - key: PORT
+        value: 5001

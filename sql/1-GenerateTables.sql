@@ -1,0 +1,63 @@
+DROP TABLE IF EXISTS StudentRegistrations;
+
+CREATE TABLE StudentRegistrations (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Term TEXT,
+    CRN TEXT,
+    CourseTitle TEXT,
+    Subject TEXT,
+    CourseNumber TEXT,
+    Section TEXT,
+    SUBJ_NMBR TEXT,
+    SUBJ_NMBR_SECT TEXT,
+    Xlst_Group_Identifier TEXT,
+    Course_Campus TEXT,
+    Course_Campus_Name TEXT,
+    Max_Enrl INTEGER,
+    Enrl_Actual INTEGER,
+    Seats_Avail INTEGER,
+    Reserved_Seating_Ind TEXT,
+    Wait_List_Count_for_Section INTEGER,
+    RegStatusCode TEXT,
+    RegStatusDesc TEXT,
+    College_of_the_Course TEXT,
+    StudentLevel TEXT,
+    College_of_the_Student TEXT,
+    Major TEXT,
+    Student_Campus TEXT,
+    TotalSemesterHours INTEGER,
+    TotalOnlineHours INTEGER,
+    Course_Location TEXT,
+    Part_of_term_code TEXT,
+    Schedule_type_code TEXT,
+    Schedule_type_desc TEXT
+);
+
+DROP TABLE IF EXISTS ClassMeetings;
+
+CREATE TABLE ClassMeetings (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    SSRMEET_SUN_DAY TEXT,
+    SSRMEET_MON_DAY TEXT,
+    SSRMEET_TUE_DAY TEXT,
+    SSRMEET_WED_DAY TEXT,
+    SSRMEET_THU_DAY TEXT,
+    SSRMEET_FRI_DAY TEXT,
+    SSRMEET_SAT_DAY TEXT,
+    Campus TEXT,
+    CRN TEXT,
+    Subject TEXT,
+    CourseNumber TEXT,
+    SectNumber TEXT,
+    MeetingTimeGroup TEXT,
+    CrosslistGroup TEXT,
+    CourseTitle TEXT,
+    Instructor TEXT,
+    RoomCapacity INTEGER,
+    ActualEnrollment INTEGER,
+    SeatsAvailable INTEGER,
+    BeginTime INTEGER,
+    EndTime INTEGER,
+    Building TEXT,
+    Room TEXT
+);
