@@ -3,26 +3,43 @@
   <head>
     <meta charset="UTF-8" />
     <title>Class Conflict Checker</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      #result {
+        margin-top: 20px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+      }
+      #dashboard-section {
+        margin-top: 60px;
+      }
+    </style>
   </head>
-  <body style="font-family: Arial, sans-serif; margin: 20px">
+
+  <body>
     <h1>📚 Class Conflict & Overcapacity Checker</h1>
 
     <label for="crnInput">Enter CRN:</label>
     <input type="text" id="crnInput" placeholder="e.g., 12345" />
     <button onclick="checkConflict()">Check</button>
 
-    <div id="result" style="margin-top: 20px"></div>
-    <!-- Embed Tableau Dashboard Below -->
-    <h2 style="margin-top: 50px">📊 Class Conflict & Overcapacity Dashboard</h2>
+    <div id="result"></div>
 
-    <div style="max-width: 1200px; margin: auto">
-      <iframe
-        src="https://public.tableau.com/views/profV/Dashboard1?:embed=true&:display_count=yes&:showVizHome=no"
-        width="100%"
-        height="800px"
-        style="border: none"
-      >
-      </iframe>
+    <!-- 🆕 Separate clean Dashboard Section -->
+    <div id="dashboard-section">
+      <h2>📊 Class Conflict & Overcapacity Dashboard</h2>
+      <div style="max-width: 1200px; margin: auto">
+        <iframe
+          src="https://public.tableau.com/views/profV/Dashboard1?:embed=true&:display_count=yes&:showVizHome=no"
+          width="100%"
+          height="800px"
+          style="border: none"
+        ></iframe>
+      </div>
     </div>
 
     <script>
@@ -49,27 +66,25 @@
           }
 
           let html = `
-                    <h3>Result for CRN: ${data.crn}</h3>
-                    <p><strong>Building:</strong> ${data.building}</p>
-                    <p><strong>Room:</strong> ${data.room}</p>
-                    <p><strong>Begin Time:</strong> ${data.begintime}</p>
-                    <p><strong>End Time:</strong> ${data.endtime}</p>
-                    <h4>Messages:</h4>
-                    <ul>
-                        ${data.messages
-                          .map((msg) => `<li>${msg}</li>`)
-                          .join("")}
-                    </ul>
-                    <h4>Notes:</h4>
-                    <ul>
-                        <li><strong>Overlap Minutes:</strong> ${
-                          data.notes.overlap_minutes ?? "None"
-                        }</li>
-                        <li><strong>Overcapacity Percent:</strong> ${
-                          data.notes.overcapacity_percent ?? "None"
-                        }</li>
-                    </ul>
-                `;
+            <h3>Result for CRN: ${data.crn}</h3>
+            <p><strong>Building:</strong> ${data.building}</p>
+            <p><strong>Room:</strong> ${data.room}</p>
+            <p><strong>Begin Time:</strong> ${data.begintime}</p>
+            <p><strong>End Time:</strong> ${data.endtime}</p>
+            <h4>Messages:</h4>
+            <ul>
+              ${data.messages.map((msg) => `<li>${msg}</li>`).join("")}
+            </ul>
+            <h4>Notes:</h4>
+            <ul>
+              <li><strong>Overlap Minutes:</strong> ${
+                data.notes.overlap_minutes ?? "None"
+              }</li>
+              <li><strong>Overcapacity Percent:</strong> ${
+                data.notes.overcapacity_percent ?? "None"
+              }</li>
+            </ul>
+          `;
 
           resultDiv.innerHTML = html;
         } catch (error) {
