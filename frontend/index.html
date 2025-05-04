@@ -2,20 +2,46 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Class Conflict Checker</title>
+    <title>Class Conflict & Overcapacity Checker</title>
     <style>
       body {
         font-family: Arial, sans-serif;
         margin: 20px;
+        background-color: #f9f9f9;
+      }
+      h1 {
+        color: #333;
+      }
+      input,
+      button {
+        padding: 10px;
+        margin: 5px 0;
+        font-size: 16px;
+      }
+      button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+      button:hover {
+        background-color: #0056b3;
       }
       #result {
         margin-top: 20px;
         padding: 20px;
-        border: 1px solid #ccc;
+        background: white;
+        border: 2px solid #007bff;
         border-radius: 10px;
+        display: none; /* Hide initially */
       }
       #dashboard-section {
         margin-top: 60px;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
       }
     </style>
   </head>
@@ -23,13 +49,13 @@
   <body>
     <h1>📚 Class Conflict & Overcapacity Checker</h1>
 
-    <label for="crnInput">Enter CRN:</label>
-    <input type="text" id="crnInput" placeholder="e.g., 12345" />
+    <label for="crnInput">Enter CRN:</label><br />
+    <input type="text" id="crnInput" placeholder="e.g., 12345" /><br />
     <button onclick="checkConflict()">Check</button>
 
     <div id="result"></div>
 
-    <!-- 🆕 Separate clean Dashboard Section -->
+    <!-- Dashboard Section -->
     <div id="dashboard-section">
       <h2>📊 Class Conflict & Overcapacity Dashboard</h2>
       <div style="max-width: 1200px; margin: auto">
@@ -38,7 +64,9 @@
           width="100%"
           height="800px"
           style="border: none"
-        ></iframe>
+          allowfullscreen="true"
+        >
+        </iframe>
       </div>
     </div>
 
@@ -50,10 +78,14 @@
         if (!crn) {
           resultDiv.innerHTML =
             "<p style='color: red;'>Please enter a CRN!</p>";
+          resultDiv.style.display = "block";
           return;
         }
 
         try {
+          resultDiv.innerHTML = "<p style='color: blue;'>🔄 Checking...</p>";
+          resultDiv.style.display = "block";
+
           const response = await fetch(
             "https://industrialmathfinalproject.onrender.com/predict?crn=" + crn
           );
@@ -87,8 +119,10 @@
           `;
 
           resultDiv.innerHTML = html;
+          resultDiv.style.display = "block";
         } catch (error) {
           resultDiv.innerHTML = `<p style='color: red;'>Error contacting server: ${error.message}</p>`;
+          resultDiv.style.display = "block";
         }
       }
     </script>
