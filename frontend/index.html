@@ -87,6 +87,21 @@
     <button class="reset-button" onclick="resetSearch()">Reset</button>
 
     <div id="result"></div>
+    <!-- Stats Section -->
+    <div id="stats" style="margin-top: 30px">
+      <h2>📊 Class Registration Statistics</h2>
+      <div
+        id="statsContent"
+        style="
+          padding: 10px;
+          background: white;
+          border-radius: 10px;
+          border: 1px solid #ccc;
+        "
+      >
+        Loading stats...
+      </div>
+    </div>
 
     <!-- Dashboard Section -->
     <div id="dashboard-section">
@@ -102,6 +117,7 @@
         </iframe>
       </div>
     </div>
+    <!-- Statistics Section -->
 
     <script>
       async function searchCourses() {
@@ -240,6 +256,26 @@
         document.getElementById("result").innerHTML = "";
         document.getElementById("result").style.display = "none";
       }
+      // Load statistics
+      async function loadStats() {
+        try {
+          const response = await fetch("http://localhost:5001/stats"); // Make sure backend is running
+          const stats = await response.json();
+
+          const statsDiv = document.getElementById("statsContent");
+          statsDiv.innerHTML = `
+      <p><strong>Total Courses:</strong> ${stats.total_courses}</p>
+      <p><strong>Overcrowded Courses:</strong> ${stats.overcrowded_courses}</p>
+    `;
+        } catch (error) {
+          console.error("Error loading stats:", error);
+        }
+      }
+
+      // Load stats when page loads
+      window.onload = function () {
+        loadStats();
+      };
     </script>
   </body>
 </html>

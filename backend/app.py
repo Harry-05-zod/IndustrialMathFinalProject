@@ -119,6 +119,7 @@ def predict():
 
     conn.close()
 
+
     return jsonify({
         'crn': crn,
         'building': building,
@@ -206,6 +207,35 @@ def search_courses():
     conn.close()
 
     return jsonify(courses)
+
+@app.route('/stats', methods=['GET'])
+def stats():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    # Total number of courses
+    query_total = "SELECT COUNT(DISTINCT CRN) AS total_courses FROM StudentRegistrations"
+    cursor.execute(query_total)
+    total_courses = cursor.fetchone()['total_courses']
+
+    # Number of overenrolled courses
+    query_overcrowded = """
+    SELECT COUNT(DISTINCT sr.CRN) AS overcrowded_courses
+    FROM StudentRegistrations sr
+    JOIN ClassMeetings cm ON sr.CRN = cm.CRN
+    GROUP BY sr.CRN
+    HAVING COUNT(sr.CRN) > cm.RoomCapacity
+    """
+    cursor.execute(query_overcrowded)
+    overcrowded_courses = len(cursor.fetchall())
+
+    conn.close()
+
+    return jsonify({
+        'total_courses': total_courses,
+        'overcrowded_courses': overcrowded_courses
+    })
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5001, debug=True)
